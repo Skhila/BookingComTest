@@ -9,6 +9,7 @@ import io.qameta.allure.Step;
 import org.testng.Assert;
 
 import static Utlis.Utils.performScrollAndClick;
+import static com.codeborne.selenide.TypeOptions.text;
 
 public class HotelsPageSteps {
     HotelsPage hotelsPage = new HotelsPage();
