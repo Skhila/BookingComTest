@@ -1,9 +1,7 @@
 package POM.Steps;
 
-import POM.Pages.HotelsPage;
 import POM.Pages.MainPage;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 
 public class MainPageSteps {
@@ -21,9 +19,32 @@ public class MainPageSteps {
 
     @Step("Close Sign In Suggestion Popup")
     public MainPageSteps closeSignInSuggestion(){
-        mainPage.closeSignInButton.click();
+        if(mainPage.closeSignInButton.isDisplayed()) {
+            mainPage.closeSignInButton.click();
+        }
         return this;
     }
-
+    @Step("Fill in the search bar")
+    public MainPageSteps fillInSearchBar(String place){
+        mainPage.hotelSearchBar.setValue(place);
+        return this;
+    }
+    @Step("Chooses specified search result")
+    public MainPageSteps chooseResult(int index,String place){
+        mainPage.searchAutocompleteResults.get(index).shouldHave(Condition.text(place)).click();
+        return this;
+    }
+    @Step("Click on date picker")
+    public MainPageSteps clickDatePicker(){
+        if(!mainPage.dateFlexibleButton.is(Condition.visible)) {
+            mainPage.dateSelector.click();
+        }
+        return this;
+    }
+    @Step("Click search button")
+    public MainPageSteps clickSearchButton(){
+        mainPage.searchButton.click();
+        return this;
+    }
 
 }
