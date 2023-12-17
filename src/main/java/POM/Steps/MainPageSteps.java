@@ -3,6 +3,7 @@ package POM.Steps;
 import POM.Data.Constants;
 import POM.Pages.HotelsPage;
 import POM.Pages.MainPage;
+import POM.Steps.CommonSteps.HelperSteps;
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
@@ -28,12 +29,14 @@ public class MainPageSteps {
     @Step("Close Sign In Suggestion Popup")
     public MainPageSteps closeSignInSuggestion(){
         if(mainPage.closeSignInButton.isDisplayed()) {
-            mainPage.closeSignInButton.click();
+            HelperSteps.clickElementUsingJSExecutor(mainPage.closeSignInButton);
         }
         return this;
     }
     @Step("Fill in the search bar")
     public MainPageSteps fillInSearchBar(String place){
+        mainPage.closeSignInButton.should(Condition.disappear);
+
         mainPage.hotelSearchBar.setValue(place);
         return this;
     }

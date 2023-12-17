@@ -17,8 +17,8 @@ public class DatePickerSteps {
 
     @Step("Click date flexible button")
     public DatePickerSteps clickFlexibleButton(){
-        datePickerSection.dateFlexibleButton.click();
         datePickerSection.dateFlexibleButton.hover().click();
+        datePickerSection.dateFlexibleButton.click();
         return this;
     }
     @Step("Choose how long you want to stay between weekend,week,month,other")

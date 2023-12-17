@@ -9,8 +9,9 @@ public class HotelPageSteps {
     HotelPage hotelPage = new HotelPage();
     @Step("Choose room number")
     public HotelPageSteps reserveRoom(){
-        if(hotelPage.reserveButtonText.exists()){
-            hotelPage.reserveButton.click();
+        if(hotelPage.reserveButtonText.isDisplayed()){
+            hotelPage.hotelReservationTotalPriceElement.should(Condition.appear);
+            hotelPage.reserveButton.hover().click();
             return this;
         }
         hotelPage.reserveButton.click();

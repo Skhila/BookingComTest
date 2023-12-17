@@ -11,5 +11,6 @@ public class HotelPage {
             reserveButton = $x("//button[@id='hp_book_now_button']"),
             reserveButtonText = $x("//span[@class='b-button__from-text book_now_rt_summary']"),
             reserveNowButton = $x("//span[contains(.,\"I'll reserve\")]/parent::button"),
-            hotelName = $x("//div[@id='hp_hotel_name']/descendant::h2");
+            hotelName = $x("//div[@id='hp_hotel_name']/descendant::h2"),
+            hotelReservationTotalPriceElement = $x("//div[contains(@class, \"hprt-reservation-total-price\")]");
 }
