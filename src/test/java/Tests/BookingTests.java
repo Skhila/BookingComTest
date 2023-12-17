@@ -34,7 +34,12 @@ public class BookingTests extends BaseConfigSelenide {
     CommonElementsSteps commonElementsSteps;
     FlightDealCardSectionSteps flightDealCardSectionSteps;
     BestFlightDealPageSteps bestFlightDealPageSteps;
+    HotelPageSteps hotelPageSteps;
+    HotelReservationPersonalDetailsPageSteps hotelReservationPersonalDetailsPageSteps;
+    CompleteBookingPageSteps completeBookingPageSteps;
+    BookingConfirmationPageSteps bookingConfirmationPageSteps;
     LanguageChangePageSteps languageChangePageSteps;
+
 
     @BeforeClass
     public void initiateStepClasses(){
@@ -45,9 +50,14 @@ public class BookingTests extends BaseConfigSelenide {
         headerSectionSteps = new HeaderSectionSteps();
         commonElementsSteps = new CommonElementsSteps();
         bestFlightDealPageSteps = new BestFlightDealPageSteps();
+        hotelPageSteps = new HotelPageSteps();
+        hotelReservationPersonalDetailsPageSteps = new HotelReservationPersonalDetailsPageSteps();
+        completeBookingPageSteps = new CompleteBookingPageSteps();
+        bookingConfirmationPageSteps = new BookingConfirmationPageSteps();
         languageChangePageSteps = new LanguageChangePageSteps();
     }
 
+  
     @Test(description = "Trending Locations Test")
     @Feature("Hotels Rating/Price Order Test")
     @Story("Test Trending Location's Hotels")
@@ -85,6 +95,7 @@ public class BookingTests extends BaseConfigSelenide {
         hotelOfferCardSectionSteps.softAssert.assertAll();
     }
 
+  
     @Test(description = "Flights Test")
     @Feature("Flights Functionality Test")
     @Story("Test Flight Offers Page")
@@ -125,6 +136,49 @@ public class BookingTests extends BaseConfigSelenide {
                         , flightDealCardSectionSteps.bestFlightDealAirlineNameSecond);
     }
 
+  
+    @Test(description = "Reservation Test")
+    @Feature("Reservation Functionality Test")
+    @Story("Test Hotel Reservation functionality")
+    @Description("This test enters a desired destination into the main page's search bar, then selects desired dates"+
+            "from the date picker. It searches for the hotel, clicks on the first search result, and switches to the newly"+
+            "opened tab. The test validates the name of the hotel, clicks on the 'Reserve' button, and fills in the fields"+
+            "for name, surname, email, and phone number before clicking the 'Next' button. Finally, it clicks on the"+
+            "'Complete Booking' button and validates that the reservation was successful.")
+    public void hotelReservationTest() throws InterruptedException {
+        open("https://www.booking.com");
+        mainPageSteps
+                .closeSignInSuggestion()
+                .fillInSearchBar(Constants.STAY_DESTINATION)
+                .chooseResult(0,Constants.STAY_DESTINATION_VALIDATION)
+                .clickDatePicker();
+        datePickerSteps
+                .clickFlexibleButton()
+                .chooseStayDuration(0)
+                .selectMonth(0)
+                .clickSelectDateButton();
+        mainPageSteps
+                .clickSearchButton();
+
+        hotelsPageSteps
+                .clickOnHotelsAvailabilityButton(0);
+        hotelsPageSteps
+                .switchTab();
+        hotelPageSteps
+                .validateHotelName(Constants.STAY_DESTINATION_VALIDATION)
+                .reserveRoom();
+        hotelReservationPersonalDetailsPageSteps
+                .fillInName(Constants.FIRST_NAME)
+                .fillInSurname(Constants.LAST_NAME)
+                .fillInEmail(hotelReservationPersonalDetailsPageSteps.generateUniqueEmail())
+                .fillInPhone(Constants.PHONE_NUMBER)
+                .clickNext();
+        completeBookingPageSteps
+                .clickCompleteBookingButton();
+        bookingConfirmationPageSteps
+                .validateConfirmationMessage();
+
+      
     @Test(description = "Language Change Test")
     @Feature("Language Change Functionality")
     @Story("Verify The Functionality Of Changing The Language")
@@ -140,7 +194,6 @@ public class BookingTests extends BaseConfigSelenide {
         mainPageSteps.flagValidation()
                 .restStep(mainPageSteps.getGermanText())
                 .languageValidation();
-
     }
 
 }
