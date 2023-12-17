@@ -15,5 +15,13 @@ public class Constants {
     LAST_NAME = "surname",
     PHONE_NUMBER = "555555555",
     CONFIRMATION_MESSAGE = "Your booking in Gudauri is confirmed";
+    ASSERT_ERROR="The image URL may not be associated with the German flag.",
+    SECRET_KEY = "8042028c5ee5c2321677d7c4047ae8af",
+    API_URL = "https://languagelayer.com/php_helper_scripts/language_api.php",
+    ASSERT_LANGUAGE_ERROR = "Language name is not as expected",
+    ASSERT_CODE_ERROR="Language code is not as expected",
+    GERMAN_NAME = "German",
+    GERMAN_CODE = "de";
+
     public static final double EXPECTED_HOTEL_LOWEST_REVIEW_SCORE = 9.0;
 }

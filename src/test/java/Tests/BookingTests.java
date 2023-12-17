@@ -38,6 +38,7 @@ public class BookingTests extends BaseConfigSelenide {
     HotelReservationPersonalDetailsPageSteps hotelReservationPersonalDetailsPageSteps;
     CompleteBookingPageSteps completeBookingPageSteps;
     BookingConfirmationPageSteps bookingConfirmationPageSteps;
+    LanguageChangePageSteps languageChangePageSteps;
 
 
     @BeforeClass
@@ -53,8 +54,10 @@ public class BookingTests extends BaseConfigSelenide {
         hotelReservationPersonalDetailsPageSteps = new HotelReservationPersonalDetailsPageSteps();
         completeBookingPageSteps = new CompleteBookingPageSteps();
         bookingConfirmationPageSteps = new BookingConfirmationPageSteps();
+        languageChangePageSteps = new LanguageChangePageSteps();
     }
 
+  
     @Test(description = "Trending Locations Test")
     @Feature("Hotels Rating/Price Order Test")
     @Story("Test Trending Location's Hotels")
@@ -92,6 +95,7 @@ public class BookingTests extends BaseConfigSelenide {
         hotelOfferCardSectionSteps.softAssert.assertAll();
     }
 
+  
     @Test(description = "Flights Test")
     @Feature("Flights Functionality Test")
     @Story("Test Flight Offers Page")
@@ -132,8 +136,7 @@ public class BookingTests extends BaseConfigSelenide {
                         , flightDealCardSectionSteps.bestFlightDealAirlineNameSecond);
     }
 
-
-
+  
     @Test(description = "Reservation Test")
     @Feature("Reservation Functionality Test")
     @Story("Test Hotel Reservation functionality")
@@ -174,6 +177,23 @@ public class BookingTests extends BaseConfigSelenide {
                 .clickCompleteBookingButton();
         bookingConfirmationPageSteps
                 .validateConfirmationMessage();
+
+      
+    @Test(description = "Language Change Test")
+    @Feature("Language Change Functionality")
+    @Story("Verify The Functionality Of Changing The Language")
+    @Description("This Test Close PopUp Window, Then Clicks on Language Button And  Clicks German Language Button" +
+            "After It Test Makes Flag Validation and Asserts That German Flag Is Shown Correctly," +
+            " Then Test Using Rest Assured And With The Help Of It Finds Outs What Language Is The Given Text from" +
+            "And Finally It Validates That The Language Has Been Changed Correctly ")
+    public void LanguageChangeTest(){
+        HelperSteps.openWebsite(Constants.URL);
+        mainPageSteps.closeSignInSuggestion()
+                .clickOnLanguageButton();
+        languageChangePageSteps.clickOnGermanBtn();
+        mainPageSteps.flagValidation()
+                .restStep(mainPageSteps.getGermanText())
+                .languageValidation();
     }
 
 }
