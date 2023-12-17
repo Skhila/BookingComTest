@@ -8,7 +8,6 @@ import io.qameta.allure.Step;
 public class AttractionsPageSteps {
     AttractionsPage attractionsPage = new AttractionsPage();
 
-
     @Step("input  location")
     public AttractionsPageSteps inputLocation(String location) {
         attractionsPage.locationInputField.click();

@@ -16,7 +16,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-
 import static com.codeborne.selenide.Selenide.open;
 
 @Listeners(SelenideListener.class)
@@ -37,13 +36,10 @@ public class BookingTests extends BaseConfigSelenide {
     CompleteBookingPageSteps completeBookingPageSteps;
     BookingConfirmationPageSteps bookingConfirmationPageSteps;
     LanguageChangePageSteps languageChangePageSteps;
-
     AttractionsPageSteps attractionsPageSteps;
-
     AttractionsContentPageSteps attractionsContentPageSteps;
     AttractionsDetailsPageSteps attractionsDetailsPageSteps;
     AttractionPricePageSteps attractionPricePageSteps;
-
 
     @BeforeClass
     public void initiateStepClasses() {
@@ -64,7 +60,6 @@ public class BookingTests extends BaseConfigSelenide {
         attractionsDetailsPageSteps = new AttractionsDetailsPageSteps();
         attractionPricePageSteps = new AttractionPricePageSteps();
     }
-
 
     @Test(description = "Trending Locations Test")
     @Feature("Hotels Rating/Price Order Test")
@@ -102,7 +97,6 @@ public class BookingTests extends BaseConfigSelenide {
 
         hotelOfferCardSectionSteps.softAssert.assertAll();
     }
-
 
     @Test(description = "Flights Test")
     @Feature("Flights Functionality Test")
@@ -143,7 +137,6 @@ public class BookingTests extends BaseConfigSelenide {
                 .validateBestFlightDealAirline(flightDealCardSectionSteps.bestFlightDealAirlineNameFirst
                         , flightDealCardSectionSteps.bestFlightDealAirlineNameSecond);
     }
-
 
     @Test(description = "Reservation Test")
     @Feature("Reservation Functionality Test")
@@ -246,8 +239,5 @@ public class BookingTests extends BaseConfigSelenide {
 
         attractionPricePageSteps
                 .softAssert.assertAll();
-
-
     }
-
 }
