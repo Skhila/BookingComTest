@@ -13,11 +13,9 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import java.net.URL;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -40,9 +38,15 @@ public class BookingTests extends BaseConfigSelenide {
     BookingConfirmationPageSteps bookingConfirmationPageSteps;
     LanguageChangePageSteps languageChangePageSteps;
 
+    AttractionsPageSteps attractionsPageSteps;
+
+    AttractionsContentPageSteps attractionsContentPageSteps;
+    AttractionsDetailsPageSteps attractionsDetailsPageSteps;
+    AttractionPricePageSteps attractionPricePageSteps;
+
 
     @BeforeClass
-    public void initiateStepClasses(){
+    public void initiateStepClasses() {
         mainPageSteps = new MainPageSteps();
         hotelsPageSteps = new HotelsPageSteps();
         datePickerSteps = new DatePickerSteps();
@@ -55,16 +59,20 @@ public class BookingTests extends BaseConfigSelenide {
         completeBookingPageSteps = new CompleteBookingPageSteps();
         bookingConfirmationPageSteps = new BookingConfirmationPageSteps();
         languageChangePageSteps = new LanguageChangePageSteps();
+        attractionsPageSteps = new AttractionsPageSteps();
+        attractionsContentPageSteps = new AttractionsContentPageSteps();
+        attractionsDetailsPageSteps = new AttractionsDetailsPageSteps();
+        attractionPricePageSteps = new AttractionPricePageSteps();
     }
 
-  
+
     @Test(description = "Trending Locations Test")
     @Feature("Hotels Rating/Price Order Test")
     @Story("Test Trending Location's Hotels")
     @Description("This Test Opens First Trending Location's Hotel Offers, Sorts With Price and Filters With Review Score," +
             "Finally Validates That Price Is Correctly Ordered, Review Scores Are In Range " +
             "and All Offers Are From The First Trending Location")
-    public void trendingLocationsTest(){
+    public void trendingLocationsTest() {
         HelperSteps.openWebsite(Constants.URL);
         String firstTrendingLocationName = mainPageSteps.getFirstTrendingLocationName();
 
@@ -95,7 +103,7 @@ public class BookingTests extends BaseConfigSelenide {
         hotelOfferCardSectionSteps.softAssert.assertAll();
     }
 
-  
+
     @Test(description = "Flights Test")
     @Feature("Flights Functionality Test")
     @Story("Test Flight Offers Page")
@@ -136,21 +144,21 @@ public class BookingTests extends BaseConfigSelenide {
                         , flightDealCardSectionSteps.bestFlightDealAirlineNameSecond);
     }
 
-  
+
     @Test(description = "Reservation Test")
     @Feature("Reservation Functionality Test")
     @Story("Test Hotel Reservation functionality")
-    @Description("This test enters a desired destination into the main page's search bar, then selects desired dates"+
-            "from the date picker. It searches for the hotel, clicks on the first search result, and switches to the newly"+
-            "opened tab. The test validates the name of the hotel, clicks on the 'Reserve' button, and fills in the fields"+
-            "for name, surname, email, and phone number before clicking the 'Next' button. Finally, it clicks on the"+
+    @Description("This test enters a desired destination into the main page's search bar, then selects desired dates" +
+            "from the date picker. It searches for the hotel, clicks on the first search result, and switches to the newly" +
+            "opened tab. The test validates the name of the hotel, clicks on the 'Reserve' button, and fills in the fields" +
+            "for name, surname, email, and phone number before clicking the 'Next' button. Finally, it clicks on the" +
             "'Complete Booking' button and validates that the reservation was successful.")
-    public void hotelReservationTest() throws InterruptedException {
+    public void hotelReservationTest() {
         open("https://www.booking.com");
         mainPageSteps
                 .closeSignInSuggestion()
                 .fillInSearchBar(Constants.STAY_DESTINATION)
-                .chooseResult(0,Constants.STAY_DESTINATION_VALIDATION)
+                .chooseResult(0, Constants.STAY_DESTINATION_VALIDATION)
                 .clickDatePicker();
         datePickerSteps
                 .clickFlexibleButton()
@@ -177,8 +185,8 @@ public class BookingTests extends BaseConfigSelenide {
                 .clickCompleteBookingButton();
         bookingConfirmationPageSteps
                 .validateConfirmationMessage();
+    }
 
-      
     @Test(description = "Language Change Test")
     @Feature("Language Change Functionality")
     @Story("Verify The Functionality Of Changing The Language")
@@ -186,7 +194,7 @@ public class BookingTests extends BaseConfigSelenide {
             "After It Test Makes Flag Validation and Asserts That German Flag Is Shown Correctly," +
             " Then Test Using Rest Assured And With The Help Of It Finds Outs What Language Is The Given Text from" +
             "And Finally It Validates That The Language Has Been Changed Correctly ")
-    public void LanguageChangeTest(){
+    public void languageChangeTest() {
         HelperSteps.openWebsite(Constants.URL);
         mainPageSteps.closeSignInSuggestion()
                 .clickOnLanguageButton();
@@ -194,6 +202,52 @@ public class BookingTests extends BaseConfigSelenide {
         mainPageSteps.flagValidation()
                 .restStep(mainPageSteps.getGermanText())
                 .languageValidation();
+    }
+
+    @Test(description = "Attractions test ")
+    @Feature("Booking attractions functionality test")
+    @Story("Validate name of attraction and price while booking")
+    @Description("This Test Close PopUp Window, Then Clicks on Attractions Button input paris in Location and click search Button" +
+            "After It Test clicks Most Popular Button and choose first offered attraction , scroll down " +
+            " select  available date , choose one ticket for adult and save price and name of attraction." +
+            "finally it clicks on next button and validate price and name of attraction")
+    public void attractionsTest() {
+        HelperSteps.openWebsite(Constants.URL);
+        mainPageSteps
+                .closeSignInSuggestion();
+        headerSectionSteps
+                .goToAttractionsPage();
+
+        attractionsPageSteps
+                .inputLocation(Constants.ATTRACTION_LOCATION)
+                .clickLocation();
+
+        commonElementsSteps
+                .clickSearchButton();
+
+        attractionsContentPageSteps
+                .clickMostPopularBtn()
+                .clickFirstOfferedElement();
+
+        HelperSteps
+                .switchToNewWindow();
+
+        attractionsDetailsPageSteps
+                .getTextOfAttraction()
+                .scrollDown()
+                .clickShowMoreBtn()
+                .clickAvailableDate()
+                .chooseTicketAmountForAdults(1)
+                .clickNextBtn();
+
+        attractionPricePageSteps
+                .validateNameOfAttraction(attractionsDetailsPageSteps.nameOfAttraction)
+                .validatePrice(attractionsDetailsPageSteps.price);
+
+        attractionPricePageSteps
+                .softAssert.assertAll();
+
+
     }
 
 }
