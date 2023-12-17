@@ -1,4 +1,12 @@
 package POM.Pages;
 
+import com.codeborne.selenide.SelenideElement;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
+
 public class MainPage {
+    public SelenideElement firstTrendingLocation = $x("//div[@data-testid = \"destination-postcards-firstrow\"]//a[2]"),
+            firstTrendingLocationName = firstTrendingLocation.$x(".//div[contains(@data-testid, \"destination-postcard\")]/div/div"),
+            closeSignInButton = $x("//button[@aria-label=\"Dismiss sign-in info.\"]");
 }
