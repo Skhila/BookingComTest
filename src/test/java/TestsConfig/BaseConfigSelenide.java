@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeMethod;
 
 import static com.codeborne.selenide.Configuration.*;
 import static com.codeborne.selenide.Configuration.reportsFolder;
+import static com.codeborne.selenide.Selenide.open;
 
 public class BaseConfigSelenide {
 
@@ -18,8 +19,8 @@ public class BaseConfigSelenide {
         options.addArguments("start-maximized");
         browserCapabilities = options;
         browserSize = null;
-        timeout=15000;
-
+        timeout=30000;
+        holdBrowserOpen = true;
         screenshots=true;
         savePageSource = false;
         reportsFolder="src/main/resources/Reports/FailedTests";
