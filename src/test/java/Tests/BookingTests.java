@@ -34,6 +34,7 @@ public class BookingTests extends BaseConfigSelenide {
     CommonElementsSteps commonElementsSteps;
     FlightDealCardSectionSteps flightDealCardSectionSteps;
     BestFlightDealPageSteps bestFlightDealPageSteps;
+    LanguageChangePageSteps languageChangePageSteps;
 
     @BeforeClass
     public void initiateStepClasses(){
@@ -44,6 +45,7 @@ public class BookingTests extends BaseConfigSelenide {
         headerSectionSteps = new HeaderSectionSteps();
         commonElementsSteps = new CommonElementsSteps();
         bestFlightDealPageSteps = new BestFlightDealPageSteps();
+        languageChangePageSteps = new LanguageChangePageSteps();
     }
 
     @Test(description = "Trending Locations Test")
@@ -121,6 +123,24 @@ public class BookingTests extends BaseConfigSelenide {
         bestFlightDealPageSteps
                 .validateBestFlightDealAirline(flightDealCardSectionSteps.bestFlightDealAirlineNameFirst
                         , flightDealCardSectionSteps.bestFlightDealAirlineNameSecond);
+    }
+
+    @Test(description = "Language Change Test")
+    @Feature("Language Change Functionality")
+    @Story("Verify The Functionality Of Changing The Language")
+    @Description("This Test Close PopUp Window, Then Clicks on Language Button And  Clicks German Language Button" +
+            "After It Test Makes Flag Validation and Asserts That German Flag Is Shown Correctly," +
+            " Then Test Using Rest Assured And With The Help Of It Finds Outs What Language Is The Given Text from" +
+            "And Finally It Validates That The Language Has Been Changed Correctly ")
+    public void LanguageChangeTest(){
+        HelperSteps.openWebsite(Constants.URL);
+        mainPageSteps.closeSignInSuggestion()
+                .clickOnLanguageButton();
+        languageChangePageSteps.clickOnGermanBtn();
+        mainPageSteps.flagValidation()
+                .restStep(mainPageSteps.getGermanText())
+                .languageValidation();
+
     }
 
 }
