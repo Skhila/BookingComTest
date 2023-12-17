@@ -13,4 +13,10 @@ public class HeaderSectionSteps {
         headerSection.flightsBtn.click();
         return this;
     }
+
+    @Step("Go To Attractions Page")
+    public HeaderSectionSteps goToAttractionsPage(){
+        headerSection.attractionsMenuBtn.click();
+        return this;
+    }
 }
