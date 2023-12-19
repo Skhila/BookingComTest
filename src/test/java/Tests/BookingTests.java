@@ -16,8 +16,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import static com.codeborne.selenide.Selenide.open;
-
 @Listeners(SelenideListener.class)
 @Epic("Booking.com Functionality Test")
 public class BookingTests extends BaseConfigSelenide {
@@ -147,7 +145,7 @@ public class BookingTests extends BaseConfigSelenide {
             "for name, surname, email, and phone number before clicking the 'Next' button. Finally, it clicks on the" +
             "'Complete Booking' button and validates that the reservation was successful.")
     public void hotelReservationTest() {
-        open("https://www.booking.com");
+        HelperSteps.openWebsite(Constants.URL);
         mainPageSteps
                 .closeSignInSuggestion()
                 .fillInSearchBar(Constants.STAY_DESTINATION)

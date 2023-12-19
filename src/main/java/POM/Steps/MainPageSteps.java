@@ -29,7 +29,7 @@ public class MainPageSteps {
     @Step("Close Sign In Suggestion Popup")
     public MainPageSteps closeSignInSuggestion(){
         if(mainPage.closeSignInButton.isDisplayed()) {
-            HelperSteps.clickElementUsingJSExecutor(mainPage.closeSignInButton);
+            mainPage.closeSignInButton.hover().click();
         }
         return this;
     }
@@ -60,6 +60,7 @@ public class MainPageSteps {
 
     @Step("Clicking On Language Change Button")
     public  MainPageSteps clickOnLanguageButton(){
+        mainPage.closeSignInButton.should(Condition.disappear);
         mainPage.languageBtn.click();
         return this;
     }
@@ -78,7 +79,7 @@ public class MainPageSteps {
         return germanText;
     }
 
-    @Step("This Step Using Rest Assured And Finds Out In Which Language Is Current Text")
+    @Step("This Step is Using Rest Assured And Finds Out In Which Language Is Current Text")
     public MainPageSteps restStep(String expectedText) {
         response = RestAssured
                 .given()

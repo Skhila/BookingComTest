@@ -16,7 +16,7 @@ public class BaseConfigSelenide {
         options.addArguments("start-maximized");
         browserCapabilities = options;
         browserSize = null;
-        timeout = 30000;
+        timeout = 35000;
         holdBrowserOpen = false;
         screenshots = true;
         savePageSource = false;
