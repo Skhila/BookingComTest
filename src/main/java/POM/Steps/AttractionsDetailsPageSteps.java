@@ -39,7 +39,8 @@ public class AttractionsDetailsPageSteps {
 
     @Step("choose amount of tickets and get price")
     public AttractionsDetailsPageSteps chooseTicketAmountForAdults(int amount) {
-        SelenideElement firstSection = attractionDetailsPage.Addbtn.get(0);
+        SelenideElement firstSection = attractionDetailsPage.adultTicketRow;
+
         SelenideElement addBtn = firstSection.$x(".//span//following-sibling::button");
         SelenideElement priceElement = firstSection.$x(".//div[contains(@class,'abf093bdfe')]");
         String numericPart = priceElement.getText().split(" ")[1];

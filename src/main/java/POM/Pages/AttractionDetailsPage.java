@@ -16,15 +16,9 @@ public class AttractionDetailsPage {
             showMoreDatesBtn =
                     $x("//button[@data-testid='toggle-calendar']"),
             availableDate =
-                    $x("//span[@class='cf06f772fa']")
+                    $x("//span[@class='cf06f772fa']"),
+
+            adultTicketRow = $x("//label[contains(text(), \"Adult\")]//parent::div//parent::div")
     ;
-
-
-
-    public ElementsCollection
-             Addbtn =
-                $x("//div[@data-testid ='ticket-selector-row']")
-                        .$$x(".//div[@data-testid ='ticket-selector-stepper']");
-
 
 }
